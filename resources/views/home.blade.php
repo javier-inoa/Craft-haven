@@ -1,6 +1,29 @@
 <x-html>
     <div class="container" style="background-color: rgb(232, 227, 217)">
-
+        <div class="row rounded-4" style="background-color: #6D4C35">
+            <div class="col" style="padding: 2% 2% 2%;">
+                <div class="row text-center mx-auto">
+                    <div class="col">
+                        <a href="{{ route('visitor.index',$user) }}" class="col h3 text-end"
+                            style="color: rgb(107, 192, 111); text-decoration-line:none;">
+                            Inicio
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="{{ route('visitor.categories',$user) }}" class="col h3 text-center"
+                            style="color: rgb(255, 255, 255); text-decoration-line:none;">
+                            Categorias
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="{{ route('visitor.tags',$user) }}" class="col h3 text-start"
+                            style="color: rgb(255, 255, 255); text-decoration-line:none;">
+                            Etiquetas
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <h2 class="h1">Mejores Puntuados</h2>
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
             <div class="carousel-indicators">
@@ -63,7 +86,7 @@
                             <p class="card-text">{{ Str::limit($product->description, 120, '...') }}</p>
                             <p class="card-text"> <b>Precio por unidad: {{ Str::limit($product->price, 120, '...') }}
                                     Bs </b></p>
-                            <a href="{{ route('products.show', $product->id) }}" class="btn text-white"
+                            <a href="{{ route('visitor.products.show', ['user'=>$user,'product'=>$product->id]) }}" class="btn text-white"
                                 style="background-color: rgb(163, 88, 40)">Ver más</a>
                         </div>
                     </div>
@@ -71,7 +94,7 @@
             @endforeach
         </div>
         <div>
-            
+
         </div>
     </div>
 

@@ -26,18 +26,6 @@
             <p class="col-4 h1 text-center" style="color: white ">
                 CRAFT-HAVEN
             </p>
-            <a href="{{ route('products.index') }}" class="col h3 text-end"
-                style="color: rgb(107, 192, 111); text-decoration-line:none;">
-                Inicio
-            </a>
-            <a href="{{ route('categories.index') }}" class="col h3 text-center"
-                style="color: rgb(107, 192, 111); text-decoration-line:none;">
-                Categorias
-            </a>
-            <a href="{{ route('tags.index') }}" class="col h3 text-start"
-                style="color: rgb(107, 192, 111); text-decoration-line:none;">
-                Etiquetas
-            </a>
         </nav>
     </div>
     {{ $slot }}

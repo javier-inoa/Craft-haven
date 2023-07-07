@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-
+    protected $fillable=['name','description','price','state','category_id'];
     public function tags()
     {
         return $this->belongsToMany(Tag::class);

@@ -16,6 +16,7 @@
                         <thead style="position: sticky;top: 0; background-color: #D4B898;">
                             <tr>
                                 <th scope="col">#</th>
+                                <th scope="col">Ver</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Precio</th>
                                 <th scope="col">Puntuacion</th>
@@ -25,17 +26,28 @@
                         </thead>
                         <tbody>
                             @php
-                                $visibleCounter = 0;
+                                $contador = 0;
                             @endphp
                             @foreach ($user->products as $product)
                                 @if ($product->state == 'visible')
                                     <tr>
-                                        <th>{{ $visibleCounter = $visibleCounter + 1 }}</th>
+                                        <th>{{ $contador = $contador + 1 }}</th>
+                                        <td><a href="{{ route('creator.products.show', ['user' => $user->id, 'product' => $product->id]) }}"
+                                            class="btn btn-success">Ver</a></td>
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->price }}</td>
                                         <td class="text-center">{{ $product->score() }}</td>
-                                        <td><a href="" class="btn btn-secondary">editar</a></td>
-                                        <td><a href="" class="btn btn-danger">eliminar</a></td>
+                                        <td><a href="{{ route('creator.products.edit', ['user' => $user->id, 'product' => $product->id]) }}"
+                                                class="btn btn-secondary">editar</a></td>
+                                        <td>
+                                            <form
+                                                action="{{ route('creator.products.destroy', ['user' => $user->id, 'product' => $product->id]) }}"
+                                                method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 @endif
                             @endforeach
@@ -50,6 +62,7 @@
                         <thead style="position: sticky;top: 0; background-color: #D4B898;">
                             <tr>
                                 <th scope="col">#</th>
+                                <th scope="col">Ver</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Precio</th>
                                 <th scope="col">Puntuacion</th>
@@ -59,17 +72,28 @@
                         </thead>
                         <tbody>
                             @php
-                                $visibleCounter = 0;
+                                $contador = 0;
                             @endphp
                             @foreach ($user->products as $product)
                                 @if ($product->state == 'private')
                                     <tr>
-                                        <th>{{ $visibleCounter = $visibleCounter + 1 }}</th>
+                                        <th>{{ $contador = $contador + 1 }}</th>
+                                        <td><a href="{{ route('creator.products.show', ['user' => $user->id, 'product' => $product->id]) }}"
+                                            class="btn btn-success">Ver</a></td>
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->price }}</td>
                                         <td class="text-center">{{ $product->score() }}</td>
-                                        <td><a href="" class="btn btn-secondary">editar</a></td>
-                                        <td><a href="" class="btn btn-danger">eliminar</a></td>
+                                        <td><a href="{{ route('creator.products.edit', ['user' => $user->id, 'product' => $product->id]) }}"
+                                                class="btn btn-secondary">editar</a></td>
+                                        <td>
+                                            <form
+                                                action="{{ route('creator.products.destroy', ['user' => $user->id, 'product' => $product->id]) }}"
+                                                method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 @endif
                             @endforeach
@@ -80,7 +104,7 @@
         </div>
         <div class="col-3 rounded-end" style="background-color: rgb(109, 76, 53)">
             <div class="row" style="margin: 5% 1% 1%">
-                <a href="" class="btn btn-success">Nuevo Producto</a>
+                <a href="{{ route('creator.products.create', $user->id) }}" class="btn btn-success">Nuevo Producto</a>
             </div>
             <div class="row" style="margin: 10% 1% 1%">
                 <div class="h5 text-white text-center" style="margin: 1% 1% 1%">Avisos de los Administradores</div>

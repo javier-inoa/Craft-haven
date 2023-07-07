@@ -6,12 +6,17 @@ use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\AdminTagController;
 use App\Http\Controllers\AdminNotificationController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CreatorProductController;
+use App\Http\Controllers\CreatorQuestionController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VisitorCategoryController;
+use App\Http\Controllers\VisitorProductController;
+use App\Http\Controllers\VisitorTagController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
@@ -75,6 +80,25 @@ Route::delete('/users/{user}/notifications/{notification}', [AdminNotificationCo
 
 
 //creator
+Route::get('/users/{user}/products/create', [CreatorProductController::class, 'create'])->name('creator.products.create');
+Route::post('/users/{user}/products/store', [CreatorProductController::class, 'store'])->name('creator.products.store');
+Route::get('/users/{user}/products/{product}/edit', [CreatorProductController::class, 'edit'])->name('creator.products.edit');
+Route::put('/users/{user}/products/{product}', [CreatorProductController::class, 'update'])->name('creator.products.update');
+Route::delete('/users/{user}/products/{product}', [CreatorProductController::class, 'destroy'])->name('creator.products.destroy');
+Route::get('/users/{user}/products/{product}', [CreatorProductController::class, 'show'])->name('creator.products.show');
+
+Route::put('/users/{user}/products/{product}/questions/{question}', [CreatorQuestionController::class, 'update'])->name('creator.questions.update');
+
+//visitor
+Route::get('/users/{user}/products',[VisitorProductController::class,'index'])->name('visitor.index');
+Route::get('/users/{user}/products/{product}',[VisitorProductController::class,'show'])->name('visitor.products.show');
+
+Route::get('/users/{user}/categories',[VisitorCategoryController::class,'index'])->name('visitor.categories');
+Route::get('/users/{user}/categories/{category}',[VisitorCategoryController::class,'show'])->name('visitor.categories.show');
+
+Route::get('/users/{user}/tags',[VisitorTagController::class,'index'])->name('visitor.tags');
+Route::get('/users/{user}/tags/{tag}',[VisitorTagController::class,'show'])->name('visitor.tags.show');
+
 
 
 

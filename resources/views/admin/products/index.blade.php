@@ -1,11 +1,6 @@
 <x-html-admin>
     <div class="row">
-        <div class="col-2 rounded-start" style="background-color: rgb(109, 76, 53)">
-            <div class="d-flex justify-content-center" style="margin: 5% 0% 0%">
-                <a href="" class="btn btn-success">Nuevo Producto</a>
-            </div>
-        </div>
-        <div class="col-7" style="background-color: rgb(193, 154, 107)">
+        <div class="col-9" style="background-color: rgb(193, 154, 107)">
             <div class="row" style="margin: 2% 0% 1%">
                 <p class="h2">Tabla Productos</p>
             </div>

@@ -1,4 +1,5 @@
-<x-html>
+<x-html-creator>
+    <a href="{{ route('users.show', $user) }}" class="btn btn-danger" style=" margin:1% 1% 1%">Atras</a>
     <div class="container">
         <div class="row">
             <h1 class="h1 text-center">{{ $product->name }}</h1>
@@ -34,17 +35,17 @@
                 </div>
                 <div class="row d-grid gap-2 col-4 mx-auto" style="padding: 3% 0% 0%;">
                     @if ($product->category && $product->category->id)
-                        <a href="{{ route('categories.show', $product->category->id) }} " class="btn btn-dark">
-                            <p class="h3">Categoria: {{ $product->category->name }} </p>
-                        </a>             
+                        <div class=" bg-dark text-center rounded-4">
+                            <p class="h3 text-white">Categoria: {{ $product->category->name }} </p>
+                        </div>
                     @endif
                 </div>
                 <div class="row rounded-pill" style="margin: 3% 5% 0%; background-color: #A35828; padding:2% 0% 2%">
                     <h2 class="h3 text-center" style="color: white">Etiquetas:</h2>
                     @foreach ($product->tags as $tag)
                         <div class="col text-center">
-                            <a href="{{ route('tags.show', $tag->id) }}" class="h4"
-                                style="text-decoration-line: none; color:white">{{ $tag->name }}</a>
+                            <div class="h4" style="text-decoration-line: none; color:white">{{ $tag->name }}
+                            </div>
                         </div>
                     @endforeach
                 </div>
@@ -55,69 +56,14 @@
                     <b class="h4 text-center">Precio por unidad: {{ $product->price }} Bs</b>
                 </div>
                 <div class="row bg-dark text-white" style="padding: 3% 0% 3%">
-                    <div class="col-6">
+                    <div class="col-6 text-center mx-auto">
                         <b class="h4">
                             <p>Puntuacion de los usuarios: {{ $product->score() }}</p>
                             <p>Puntuado por {{ $product->scores->count() }} usuarios</p>
                         </b>
                     </div>
-                    <div class="col-6">
-                        <form action="">
-                            <div class="text-center">
-                                <div id="rangeValue" class="h5">5</div>
-                                <input type="range" class="form-range" min="0" max="10"
-                                    id="customRange2">
-                                <button type="submit" class="btn btn-success">Puntuar</button>
-                            </div>
-                        </form>
-                        <script>
-                            var rangeInput = document.getElementById('customRange2');
-                            var rangeValue = document.getElementById('rangeValue');
-                            rangeInput.addEventListener('input', function() {
-                                rangeValue.textContent = rangeInput.value;
-                            });
-                        </script>
-                    </div>
                 </div>
-                <div class="row" style="padding: 0% 1% 0%">
-                    <div class="col-6">
-                        <form action="">
-                            <div style="margin: 2% 0% 2%;">
-                                <div class="card rounded-4 border border-dark border-4 rounded-5">
-                                    <div class="h3 card-header">
-                                        Comentar:
-                                    </div>
-                                    <div class="card-body">
-                                        <p class="card-text">
-                                            <textarea name="" id="" class="form-control border border-dark" style="resize: none" rows="5"
-                                                required placeholder="Ingrese comentario"></textarea>
-                                        </p>
-                                        <button type="submit" class="btn btn-primary">Comentar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-6">
-                        <form action="">
-                            <div style="margin: 2% 0% 2%;">
-                                <div class="card rounded-4 border border-dark border-4 rounded-5">
-                                    <div class="h3 card-header">
-                                        Preguntar:
-                                    </div>
-                                    <div class="card-body">
-                                        <p class="card-text">
-                                            <textarea name="" id="" class="form-control border border-dark" style="resize: none" rows="5"
-                                                required placeholder="Ingrese su pregunta"></textarea>
-                                        </p>
-                                        <button type="submit" class="btn btn-primary">Consultar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="row" style="padding: 0% 2% 3%">
+                <div class="row" style="padding: 0% 2% 3%; margin:2% 0% 2%">
                     <div class="col-6 border border-dark border-3" style="background-color: rgba(255,255,255,0.7)">
                         <b class="h3">Comentarios</b>
                         @foreach ($product->comments as $comment)
@@ -140,7 +86,15 @@
                                 </div>
                                 <div class="card-footer border-dark">
                                     <h5 class="card-title">Respuesta del Artesano:</h5>
-                                    <p class="card-text ">{{ $question->answer }}</p>
+                                    <form action="{{route('creator.questions.update',['user'=>$user,'product'=>$product->id,'question'=>$question->id])}}" method="post">
+                                        @csrf
+                                        @method('put')
+                                        <textarea name="answer" id="" class="form-control border border-warning" style="resize: none" rows="5">{{ @old('answer', $question->answer) }}</textarea>
+                                        <div class="form-text text-white bg-danger">
+                                            <x-input-error :messages="$errors->get('answer')" class="mt-2" />
+                                        </div>
+                                        <button type="submit" class="btn btn-danger">Responder</button>
+                                    </form>
                                 </div>
                             </div>
                         @endforeach
@@ -150,4 +104,4 @@
             </div>
         </div>
     </div>
-</x-html>
+</x-html-creator>
