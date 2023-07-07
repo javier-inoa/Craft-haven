@@ -15,7 +15,7 @@ class VisitorTagController extends Controller
 
     public function show($user,$tag)
     {
-        $tags = Tag::find($tag)->products;
+        $tags = Tag::find($tag)->products()->where('state', 'visible')->get();
         $tag =Tag::find($tag);
         return view('tags.show', compact('user','tags','tag'));
     }

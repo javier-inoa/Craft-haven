@@ -25,9 +25,10 @@
 <body style="background-color: rgb(232, 227, 217)">
     <div class="row" style="margin-bottom: 3%;">
         <nav class=" navbar " style="background-color: rgb(109, 76, 53)">
+            <a href="{{route('products.index')}}" class="btn btn-danger" style="margin: 0% 0% 0% 3%">Salir</a>
             <p class="col h1 text-center" style="color: white ">
                 CRAFT-HAVEN: SELLER
-            </p>
+            </p> 
         </nav>
     </div>
     <div class="container">

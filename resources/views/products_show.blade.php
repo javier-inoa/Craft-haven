@@ -1,5 +1,29 @@
 <x-html>
     <div class="container">
+        <div class="row rounded-4" style="background-color: #6D4C35">
+            <div class="col" style="padding: 2% 2% 2%;">
+                <div class="row text-center mx-auto">
+                    <div class="col">
+                        <a href="{{ route('visitor.index', $user) }}" class="col h3 text-end"
+                            style="color: rgb(255, 255, 255); text-decoration-line:none;">
+                            Inicio
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="{{ route('visitor.categories', $user) }}" class="col h3 text-center"
+                            style="color: rgb(255, 255, 255); text-decoration-line:none;">
+                            Categorias
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="{{ route('visitor.tags', $user) }}" class="col h3 text-start"
+                            style="color: rgb(255, 255, 255); text-decoration-line:none;">
+                            Etiquetas
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <h1 class="h1 text-center">{{ $product->name }}</h1>
             <h2 class="h2">Imagenes</h2>
@@ -34,17 +58,18 @@
                 </div>
                 <div class="row d-grid gap-2 col-4 mx-auto" style="padding: 3% 0% 0%;">
                     @if ($product->category && $product->category->id)
-                        <a href="{{ route('categories.show', $product->category->id) }} " class="btn btn-dark">
+                        <a href="{{ route('visitor.categories.show', ['user' => $user, 'category' => $product->category->id]) }} "
+                            class="btn btn-dark">
                             <p class="h3">Categoria: {{ $product->category->name }} </p>
-                        </a>             
+                        </a>
                     @endif
                 </div>
                 <div class="row rounded-pill" style="margin: 3% 5% 0%; background-color: #A35828; padding:2% 0% 2%">
                     <h2 class="h3 text-center" style="color: white">Etiquetas:</h2>
                     @foreach ($product->tags as $tag)
                         <div class="col text-center">
-                            <a href="{{ route('tags.show', $tag->id) }}" class="h4"
-                                style="text-decoration-line: none; color:white">{{ $tag->name }}</a>
+                            <a href="{{ route('visitor.tags.show', ['user' => $user, 'tag' => $tag->id]) }}"
+                                class="h4" style="text-decoration-line: none; color:white">{{ $tag->name }}</a>
                         </div>
                     @endforeach
                 </div>
@@ -62,10 +87,14 @@
                         </b>
                     </div>
                     <div class="col-6">
-                        <form action="">
+                        <form
+                            action="{{ route('visitor.scores.update', ['user' => $user, 'product' => $product->id]) }}"
+                            method="post">
+                            @csrf
+                            @method('put')
                             <div class="text-center">
                                 <div id="rangeValue" class="h5">5</div>
-                                <input type="range" class="form-range" min="0" max="10"
+                                <input type="range" class="form-range" name="score" min="0" max="10"
                                     id="customRange2">
                                 <button type="submit" class="btn btn-success">Puntuar</button>
                             </div>
@@ -81,7 +110,10 @@
                 </div>
                 <div class="row" style="padding: 0% 1% 0%">
                     <div class="col-6">
-                        <form action="">
+                        <form
+                            action="{{ route('visitor.comments.store', ['user' => $user, 'product' => $product->id]) }}"
+                            method="post">
+                            @csrf
                             <div style="margin: 2% 0% 2%;">
                                 <div class="card rounded-4 border border-dark border-4 rounded-5">
                                     <div class="h3 card-header">
@@ -89,8 +121,11 @@
                                     </div>
                                     <div class="card-body">
                                         <p class="card-text">
-                                            <textarea name="" id="" class="form-control border border-dark" style="resize: none" rows="5"
-                                                required placeholder="Ingrese comentario"></textarea>
+                                            <textarea name="comment" id="" class="form-control border border-dark" style="resize: none" rows="5"
+                                                placeholder="Ingrese comentario">{{ @old('comment') }}</textarea>
+                                        <div class="form-text text-white bg-danger">
+                                            <x-input-error :messages="$errors->get('comment')" class="mt-2" />
+                                        </div>
                                         </p>
                                         <button type="submit" class="btn btn-primary">Comentar</button>
                                     </div>
@@ -99,7 +134,8 @@
                         </form>
                     </div>
                     <div class="col-6">
-                        <form action="">
+                        <form action="{{route('visitor.questions.store',['user'=>$user,'product'=>$product->id])}}" method="post">
+                            @csrf
                             <div style="margin: 2% 0% 2%;">
                                 <div class="card rounded-4 border border-dark border-4 rounded-5">
                                     <div class="h3 card-header">
@@ -107,8 +143,11 @@
                                     </div>
                                     <div class="card-body">
                                         <p class="card-text">
-                                            <textarea name="" id="" class="form-control border border-dark" style="resize: none" rows="5"
-                                                required placeholder="Ingrese su pregunta"></textarea>
+                                            <textarea name="question" id="" class="form-control border border-dark" style="resize: none"
+                                                rows="5" placeholder="Ingrese su pregunta">{{@old('question')}}</textarea>
+                                        <div class="form-text text-white bg-danger">
+                                            <x-input-error :messages="$errors->get('question')" class="mt-2" />
+                                        </div>
                                         </p>
                                         <button type="submit" class="btn btn-primary">Consultar</button>
                                     </div>

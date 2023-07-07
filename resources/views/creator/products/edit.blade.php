@@ -15,8 +15,9 @@
                         style="background-color: rgba(255, 0, 0, 0.5);padding: 1% 1% 1%;margin:1% 0% 1%">
                         <div class="h3">Notificación del producto</div>
                         @foreach ($product->notifications as $notification)
-                            <div class="row rounded-4 text-white" style="margin: 2% 1% 2%; background:rgba(255, 0, 0, 0.815);padding:1% 1% 1%">
-                                {{$notification->notification}}
+                            <div class="row rounded-4 text-white"
+                                style="margin: 2% 1% 2%; background:rgba(255, 0, 0, 0.815);padding:1% 1% 1%">
+                                {{ $notification->notification }}
                             </div>
                         @endforeach
                     </div>
@@ -86,8 +87,7 @@
                                         </label>
                                     </div>
                                     <div class="col-6">
-                                        <input class="form-check-input" type="radio" name="state"
-                                            value="private"
+                                        <input class="form-check-input" type="radio" name="state" value="private"
                                             {{ old('state', $product->state) === 'private' ? 'checked' : '' }}>
                                         <label class="form-check-label" for="">
                                             Privado
@@ -108,7 +108,7 @@
                                 <div class="col-3 align-items-center">
                                     <input class="form-check-input" type="radio" name="category"
                                         value="{{ $category->id }}"
-                                        {{ old('category', $product->category->id) == $category->id ? 'checked' : '' }}>
+                                        {{ old('category', $product->category->id ?? '') == $category->id ? 'checked' : '' }}>
                                     <label class="form-check-label" for="">
                                         {{ $category->name }}
                                     </label>
@@ -124,7 +124,7 @@
                                 <div class="col-3 align-items-center">
                                     <input class="form-check-input" type="checkbox" name="tags[]"
                                         value="{{ $tag->id }}"
-                                        {{ in_array($tag->id, old('tags', $product->tags->pluck('id')->toArray())) ? 'checked' : '' }}>
+                                        {{ in_array($tag->id, old('tags', $product->tags->pluck('id')->toArray()) ?? []) ? 'checked' : '' }}>
                                     <label class="form-check-label" for="">
                                         {{ $tag->name }}
                                     </label>

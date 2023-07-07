@@ -15,7 +15,10 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VisitorCategoryController;
+use App\Http\Controllers\VisitorCommentController;
 use App\Http\Controllers\VisitorProductController;
+use App\Http\Controllers\VisitorQuestionController;
+use App\Http\Controllers\VisitorScoreController;
 use App\Http\Controllers\VisitorTagController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
@@ -49,55 +52,62 @@ Route::get('/categories/{category}', [CategoryController::class, 'show'])->name(
 
 //administrador
 
-Route::get('/users/{user}/products', [AdminProductController::class, 'index'])->name('admin.products');
+Route::get('/users/admin/{user}/products', [AdminProductController::class, 'index'])->name('admin.products');
 
-Route::get('/users/{user}/users', [AdminUserController::class, 'index'])->name('admin.users');
-Route::get('/users/{admin}/users/{user}/edit', [AdminUserController::class, 'edit'])->name('admin.users.edit');
-Route::put('/users/{admin}/users/{user}', [AdminUserController::class, 'update'])->name('admin.users.update');
+Route::get('/users/admin/{user}/users', [AdminUserController::class, 'index'])->name('admin.users');
+Route::get('/users/admin/{admin}/users/{user}/edit', [AdminUserController::class, 'edit'])->name('admin.users.edit');
+Route::put('/users/admin/{admin}/users/{user}', [AdminUserController::class, 'update'])->name('admin.users.update');
 
-Route::get('/users/{user}/categories', [AdminCategoryController::class, 'index'])->name('admin.categories');
-Route::get('/users/{user}/categories/create', [AdminCategoryController::class, 'create'])->name('admin.categories.create');
-Route::post('/users/{user}/categories/store', [AdminCategoryController::class, 'store'])->name('admin.categories.store');
-Route::get('/users/{user}/categories/{category}/edit', [AdminCategoryController::class, 'edit'])->name('admin.categories.edit');
-Route::put('/users/{user}/categories/{category}', [AdminCategoryController::class, 'update'])->name('admin.categories.update');
-Route::delete('/users/{user}/categories/{category}', [AdminCategoryController::class, 'destroy'])->name('admin.categories.destroy');
+Route::get('/users/admin/{user}/categories', [AdminCategoryController::class, 'index'])->name('admin.categories');
+Route::get('/users/admin/{user}/categories/create', [AdminCategoryController::class, 'create'])->name('admin.categories.create');
+Route::post('/users/admin/{user}/categories/store', [AdminCategoryController::class, 'store'])->name('admin.categories.store');
+Route::get('/users/admin/{user}/categories/{category}/edit', [AdminCategoryController::class, 'edit'])->name('admin.categories.edit');
+Route::put('/users/admin/{user}/categories/{category}', [AdminCategoryController::class, 'update'])->name('admin.categories.update');
+Route::delete('/users/admin/{user}/categories/{category}', [AdminCategoryController::class, 'destroy'])->name('admin.categories.destroy');
 
-Route::get('/users/{user}/tags', [AdminTagController::class, 'index'])->name('admin.tags');
-Route::get('/users/{user}/tags/create', [AdminTagController::class, 'create'])->name('admin.tags.create');
-Route::post('/users/{user}/tags/store', [AdminTagController::class, 'store'])->name('admin.tags.store');
-Route::get('/users/{user}/tags/{tag}/edit', [AdminTagController::class, 'edit'])->name('admin.tags.edit');
-Route::put('/users/{user}/tags/{tag}', [AdminTagController::class, 'update'])->name('admin.tags.update');
-Route::delete('/users/{user}/tags/{tag}', [AdminTagController::class, 'destroy'])->name('admin.tags.destroy');
+Route::get('/users/admin/{user}/tags', [AdminTagController::class, 'index'])->name('admin.tags');
+Route::get('/users/admin/user}/tags/create', [AdminTagController::class, 'create'])->name('admin.tags.create');
+Route::post('/users/admin/{user}/tags/store', [AdminTagController::class, 'store'])->name('admin.tags.store');
+Route::get('/users/admin/{user}/tags/{tag}/edit', [AdminTagController::class, 'edit'])->name('admin.tags.edit');
+Route::put('/users/admin/{user}/tags/{tag}', [AdminTagController::class, 'update'])->name('admin.tags.update');
+Route::delete('/users/admin/{user}/tags/{tag}', [AdminTagController::class, 'destroy'])->name('admin.tags.destroy');
 
-Route::get('/users/{user}/notifications', [AdminNotificationController::class, 'index'])->name('admin.notifications');
-Route::get('/users/{user}/notifications/create/{product}', [AdminNotificationController::class, 'create'])->name('admin.notifications.create');
-Route::post('/users/{user}/notifications/store/{product}', [AdminNotificationController::class, 'store'])->name('admin.notifications.store');
-Route::get('/users/{user}/notifications/{notification}/edit', [AdminNotificationController::class, 'edit'])->name('admin.notifications.edit');
-Route::put('/users/{user}/notifications/{notification}', [AdminNotificationController::class, 'update'])->name('admin.notifications.update');
-Route::delete('/users/{user}/notifications/{notification}', [AdminNotificationController::class, 'destroy'])->name('admin.notifications.destroy');
+Route::get('/users/admin/{user}/notifications', [AdminNotificationController::class, 'index'])->name('admin.notifications');
+Route::get('/users/admin/{user}/notifications/create/{product}', [AdminNotificationController::class, 'create'])->name('admin.notifications.create');
+Route::post('/users/admin/{user}/notifications/store/{product}', [AdminNotificationController::class, 'store'])->name('admin.notifications.store');
+Route::get('/users/admin/{user}/notifications/{notification}/edit', [AdminNotificationController::class, 'edit'])->name('admin.notifications.edit');
+Route::put('/users/admin/{user}/notifications/{notification}', [AdminNotificationController::class, 'update'])->name('admin.notifications.update');
+Route::delete('/users/admin/{user}/notifications/{notification}', [AdminNotificationController::class, 'destroy'])->name('admin.notifications.destroy');
 
 
 
 
 //creator
-Route::get('/users/{user}/products/create', [CreatorProductController::class, 'create'])->name('creator.products.create');
-Route::post('/users/{user}/products/store', [CreatorProductController::class, 'store'])->name('creator.products.store');
-Route::get('/users/{user}/products/{product}/edit', [CreatorProductController::class, 'edit'])->name('creator.products.edit');
-Route::put('/users/{user}/products/{product}', [CreatorProductController::class, 'update'])->name('creator.products.update');
-Route::delete('/users/{user}/products/{product}', [CreatorProductController::class, 'destroy'])->name('creator.products.destroy');
-Route::get('/users/{user}/products/{product}', [CreatorProductController::class, 'show'])->name('creator.products.show');
+Route::get('/users/seller/{user}/products/create', [CreatorProductController::class, 'create'])->name('creator.products.create');
+Route::post('/users/seller/{user}/products/store', [CreatorProductController::class, 'store'])->name('creator.products.store');
+Route::get('/users/seller/{user}/products/{product}/edit', [CreatorProductController::class, 'edit'])->name('creator.products.edit');
+Route::put('/users/seller/{user}/products/{product}', [CreatorProductController::class, 'update'])->name('creator.products.update');
+Route::delete('/users/seller/{user}/products/{product}', [CreatorProductController::class, 'destroy'])->name('creator.products.destroy');
+Route::get('/users/seller/{user}/products/{product}', [CreatorProductController::class, 'show'])->name('creator.products.show');
 
-Route::put('/users/{user}/products/{product}/questions/{question}', [CreatorQuestionController::class, 'update'])->name('creator.questions.update');
+Route::put('/users/seller/{user}/products/{product}/questions/{question}', [CreatorQuestionController::class, 'update'])->name('creator.questions.update');
 
 //visitor
-Route::get('/users/{user}/products',[VisitorProductController::class,'index'])->name('visitor.index');
-Route::get('/users/{user}/products/{product}',[VisitorProductController::class,'show'])->name('visitor.products.show');
+Route::get('/users/visitor/{user}/products',[VisitorProductController::class,'index'])->name('visitor.index');
+Route::get('/users/visitor/{user}/products/{product}',[VisitorProductController::class,'show'])->name('visitor.products.show');
 
-Route::get('/users/{user}/categories',[VisitorCategoryController::class,'index'])->name('visitor.categories');
-Route::get('/users/{user}/categories/{category}',[VisitorCategoryController::class,'show'])->name('visitor.categories.show');
+Route::get('/users/visitor/{user}/categories',[VisitorCategoryController::class,'index'])->name('visitor.categories');
+Route::get('/users/visitor/{user}/categories/{category}',[VisitorCategoryController::class,'show'])->name('visitor.categories.show');
 
-Route::get('/users/{user}/tags',[VisitorTagController::class,'index'])->name('visitor.tags');
-Route::get('/users/{user}/tags/{tag}',[VisitorTagController::class,'show'])->name('visitor.tags.show');
+Route::get('/users/visitor/{user}/tags',[VisitorTagController::class,'index'])->name('visitor.tags');
+Route::get('/users/visitor/{user}/tags/{tag}',[VisitorTagController::class,'show'])->name('visitor.tags.show');
+
+Route::put('/users/visitor/{user}/products/{product}/score',[VisitorScoreController::class,'update'])->name('visitor.scores.update');
+
+Route::post('/users/visitor/{user}/products/{product}/comments/store', [VisitorCommentController::class, 'store'])->name('visitor.comments.store');
+
+Route::post('/users/visitor/{user}/products/{product}/questions/store', [VisitorQuestionController::class, 'store'])->name('visitor.questions.store');
+
 
 
 

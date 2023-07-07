@@ -16,7 +16,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users->sortByDesc('type') as $index => $user)
+                            @foreach ($users->sortByDesc('type')->values() as $index => $user)
                                 <tr>
                                     <th>{{ $index + 1 }}</th>
                                     <td>{{ $user->name }}</td>

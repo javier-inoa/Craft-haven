@@ -35,7 +35,7 @@
                             <p class="card-text">{{ Str::limit($product->description, 120, '...') }}</p>
                             <p class="card-text"> <b>Precio por unidad: {{ Str::limit($product->price, 120, '...') }} Bs
                                 </b></p>
-                            <a href="{{ route('visitor.products.show', ['user'=>$user,'$product'=>$product->id]) }}" class="btn text-white"
+                            <a href="{{route('visitor.products.show',['user'=>$user,'product'=>$product->id])}}" class="btn text-white"
                                 style="background-color: rgb(163, 88, 40)">Ver más</a>
                         </div>
                     </div>

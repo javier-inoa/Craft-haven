@@ -39,7 +39,7 @@
                     <img src="{{ $products[0]->images[0]->name }}" class="d-block w-100 img-fluid" alt="..."
                         style="height: 10cm">
                     <div class="carousel-caption d-none d-md-block">
-                        <a href=" {{ route('products.show', $products[0]->id) }} " class="h2 rounded-pill"
+                        <a href=" {{ route('visitor.products.show', ['user'=>$user,'product'=>$products[0]->id]) }} " class="h2 rounded-pill"
                             style="background-color: rgb(163, 88, 40); color:white; text-decoration-line:none;">{{ $products[0]->name }}
                         </a>
                     </div>
@@ -48,7 +48,7 @@
                     <img src="{{ $products[1]->images[1]->name }}" class="d-block w-100 img-fluid" alt="..."
                         style="height: 10cm">
                     <div class="carousel-caption d-none d-md-block">
-                        <a href=" {{ route('products.show', $products[1]->id) }} " class="h2 rounded-pill"
+                        <a href=" {{ route('visitor.products.show', ['user'=>$user,'product'=>$products[1]->id]) }}" class="h2 rounded-pill"
                             style="background-color: rgb(163, 88, 40); color:white; text-decoration-line:none;">{{ $products[1]->name }}
                         </a>
                     </div>
@@ -57,7 +57,7 @@
                     <img src="{{ $products[2]->images[2]->name }}" class="d-block w-100 img-fluid" alt="..."
                         style="height: 10cm">
                     <div class="carousel-caption d-none d-md-block">
-                        <a href=" {{ route('products.show', $products[2]->id) }} " class="h2 rounded-pill"
+                        <a href=" {{ route('visitor.products.show', ['user'=>$user,'product'=>$products[2]->id]) }} " class="h2 rounded-pill"
                             style="background-color: rgb(163, 88, 40); color:white; text-decoration-line:none;">{{ $products[2]->name }}
                         </a>
                     </div>
